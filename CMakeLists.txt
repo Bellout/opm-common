@@ -1,12 +1,13 @@
 project(opm-common C CXX)
 cmake_minimum_required (VERSION 2.8)
 
-option(SIBLING_SEARCH "Search for other modules in sibling directories?" ON)
+option(SIBLING_SEARCH "Search for other modules in sibling directories?" OFF)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/Modules)
 set(OPM_MACROS_ROOT ${PROJECT_SOURCE_DIR})
 
 option(ENABLE_ECL_INPUT "Enable eclipse input support?" ON)
-option(ENABLE_ECL_OUTPUT "Enable eclipse output support?" ON)
+option(ENABLE_ECL_OUTPUT "Enable eclipse output support?" OFF)
+set(CMAKE_INSTALL_PREFIX "$PROJECT_SOURCE_DIR/../libraries/")
 
 # Output implies input
 if(ENABLE_ECL_OUTPUT)
