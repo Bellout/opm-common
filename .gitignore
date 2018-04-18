@@ -69,3 +69,23 @@ install
 
 # emacs directory setting:
 .dir-locals.el
+
+
+
+
+# Additional compiled things =====
+ParserKeywords.cpp
+config.h.tmp
+doc/*
+dunemod.tmp
+include/*
+inlinekw.cpp
+keyword_list.argv
+libraries/*
+opm-common-config-version.cmake
+opm-common-config.cmake
+opm-common-install.cmake
+opm-common-targets.cmake
+project-version.h
+project-version.tmp
+
