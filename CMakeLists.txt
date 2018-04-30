@@ -8,8 +8,21 @@ set(OPM_MACROS_ROOT ${PROJECT_SOURCE_DIR})
 option(ENABLE_ECL_INPUT "Enable eclipse input support?" ON)
 option(ENABLE_ECL_OUTPUT "Enable eclipse output support?" OFF)
 
+# Custom ERT include dir (ResInsight) ==================================
+option(USE_ECL_SYSTEM "Use system ERT library" OFF)
+option(USE_ECL_RI "Use RI ERT library" ON)
+option(USE_ECL_LOCAL "Use local ERT library" OFF)
+
+if (USE_ECL_SYSTEM)
+
+elseif (USE_ECL_RI)
+  set(RIERTWIC FieldOpt-WellIndexCalculator/resinxx/rixx_ert_ecl)
+  set(ecl_DIR "${PROJECT_SOURCE_DIR}/../../${RIERTWIC}/cmake-build-debug")
+elseif(USE_ECL_LOCAL)
+  set(ecl_DIR "${PROJECT_SOURCE_DIR}/../libraries/share/cmake/ecl")
+endif()
+
 set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/../libraries/")
-set(ecl_DIR "${PROJECT_SOURCE_DIR}/../libraries/share/cmake/ecl")
 
 # Output implies input
 if(ENABLE_ECL_OUTPUT)
@@ -120,8 +133,8 @@ endmacro (tests_hook)
 
 macro (install_hook)
   install(DIRECTORY ${PROJECT_BINARY_DIR}/include/
-          DESTINATION include
-          PATTERN *.hpp)
+      DESTINATION include
+      PATTERN *.hpp)
 endmacro (install_hook)
 
 # all setup common to the OPM library modules is done here
