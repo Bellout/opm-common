@@ -28,6 +28,7 @@
 #include <opm/parser/eclipse/Parser/ParserEnums.hpp>
 #include <opm/parser/eclipse/RawDeck/RawRecord.hpp>
 #include <opm/parser/eclipse/RawDeck/StarToken.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 
 namespace Opm {
@@ -359,7 +360,7 @@ std::string ParserItem::createCode() const {
         }
 
     if (raw_string)
-        stream << " ); item.setType( " << tag_name( this->type ) << "(), true );"; 
+        stream << " ); item.setType( " << tag_name( this->type ) << "(), true );";
     else
         stream << " ); item.setType( " << tag_name( this->type ) << "() );";
 
@@ -512,9 +513,9 @@ std::string ParserItem::inlineClassInit(const std::string& parentClass,
     auto defval = [this]() -> std::string {
         switch( this->type ) {
             case type_tag::integer:
-                return std::to_string( this->getDefault< int >() );
+                return ToString( this->getDefault< int >() );
             case type_tag::fdouble:
-                return std::to_string( this->getDefault< double >() );
+                return ToString( this->getDefault< double >() );
             case type_tag::string:
                 return "\"" + this->getDefault< std::string >() + "\"";
 

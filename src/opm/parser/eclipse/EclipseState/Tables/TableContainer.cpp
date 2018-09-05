@@ -19,6 +19,7 @@
 
 #include <string>
 #include <iostream>
+#include <opm/common/utility/stringhelpers.h>
 
 #include <opm/parser/eclipse/EclipseState/Tables/TableContainer.hpp>
 
@@ -59,7 +60,7 @@ namespace Opm {
             if (tableNumber > 0)
                 return getTable(tableNumber -1);
             else
-                throw std::invalid_argument("TableContainer does not have any table in the range 0..." + std::to_string( tableNumber ));
+                throw std::invalid_argument("TableContainer does not have any table in the range 0..." + ToString( tableNumber ));
         }
     }
 
@@ -70,7 +71,7 @@ namespace Opm {
 
     void TableContainer::addTable(size_t tableNumber , std::shared_ptr<const SimpleTable> table) {
         if (tableNumber >= m_maxTables)
-            throw std::invalid_argument("TableContainer has max: " + std::to_string( m_maxTables ) + " tables. Table number: " + std::to_string( tableNumber ) + " illegal.");
+            throw std::invalid_argument("TableContainer has max: " + ToString( m_maxTables ) + " tables. Table number: " + ToString( tableNumber ) + " illegal.");
 
         m_tables[tableNumber] = table;
     }

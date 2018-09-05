@@ -25,6 +25,7 @@
 
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 #include <opm/json/JsonObject.hpp>
 #include <cJSON.h>

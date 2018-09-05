@@ -35,6 +35,7 @@
 #include <opm/parser/eclipse/EclipseState/Schedule/TimeMap.hpp>
 #include <opm/parser/eclipse/EclipseState/Schedule/Well.hpp>
 #include <opm/parser/eclipse/EclipseState/SummaryConfig/SummaryConfig.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 #include <ert/ecl/Smspec.hpp>
 #include <ert/ecl/ecl_smspec.h>
@@ -251,7 +252,7 @@ inline void keywordR( std::vector< ERT::smspec_node >& list,
         if (region >= 1 && region <= static_cast<int>(numfip))
             list.emplace_back( keyword.name(), dims.getNXYZ().data(), region );
         else
-            throw std::invalid_argument("Illegal region value: " + std::to_string( region ));
+            throw std::invalid_argument("Illegal region value: " + ToString( region ));
     }
 }
 

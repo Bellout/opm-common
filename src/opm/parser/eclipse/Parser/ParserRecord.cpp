@@ -24,6 +24,7 @@
 #include <opm/parser/eclipse/Parser/ParserItem.hpp>
 #include <opm/parser/eclipse/RawDeck/RawRecord.hpp>
 #include <opm/parser/eclipse/Units/UnitSystem.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -131,7 +132,7 @@ namespace {
 
         if (rawRecord.size() > 0) {
             std::string msg = "The RawRecord for keyword \""  + rawRecord.getKeywordName() + "\" in file\"" + rawRecord.getFileName() + "\" contained " +
-                std::to_string(rawRecord.size()) +
+                ToString(rawRecord.size()) +
                 " too many items according to the spec. RawRecord was: " + rawRecord.getRecordString();
             parseContext.handleError(ParseContext::PARSE_EXTRA_DATA , msg);
         }

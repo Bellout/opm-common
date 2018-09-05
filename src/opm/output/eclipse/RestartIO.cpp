@@ -171,15 +171,15 @@ data::Wells restore_wells( const ecl_kw_type * opm_xwel,
     if( ecl_kw_get_size( opm_xwel ) != expected_xwel_size ) {
         throw std::runtime_error(
                 "Mismatch between OPM_XWEL and deck; "
-                "OPM_XWEL size was " + std::to_string( ecl_kw_get_size( opm_xwel ) ) +
-                ", expected " + std::to_string( expected_xwel_size ) );
+                "OPM_XWEL size was " + ToString( ecl_kw_get_size( opm_xwel ) ) +
+                ", expected " + ToString( expected_xwel_size ) );
     }
 
     if( ecl_kw_get_size( opm_iwel ) != int(sched_wells.size()) )
         throw std::runtime_error(
                 "Mismatch between OPM_IWEL and deck; "
-                "OPM_IWEL size was " + std::to_string( ecl_kw_get_size( opm_iwel ) ) +
-                ", expected " + std::to_string( sched_wells.size() ) );
+                "OPM_IWEL size was " + ToString( ecl_kw_get_size( opm_iwel ) ) +
+                ", expected " + ToString( sched_wells.size() ) );
 
     data::Wells wells;
     const double * opm_xwel_data = ecl_kw_get_double_ptr( opm_xwel );
@@ -238,7 +238,7 @@ RestartValue load( const std::string& filename,
         if (!file_view)
             throw std::runtime_error( "Restart file " + filename
                                       + " does not contain data for report step "
-                                      + std::to_string( report_step ) + "!" );
+                                      + ToString( report_step ) + "!" );
     } else
         file_view = ecl_file_get_global_view( file.get() );
 

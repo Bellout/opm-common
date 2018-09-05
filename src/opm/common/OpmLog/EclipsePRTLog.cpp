@@ -19,6 +19,7 @@
 
 #include <opm/common/OpmLog/EclipsePRTLog.hpp>
 #include <opm/common/OpmLog/LogUtil.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -30,7 +31,7 @@ namespace Opm {
     }
 
 
-    size_t EclipsePRTLog::numMessages(int64_t messageType) const 
+    size_t EclipsePRTLog::numMessages(int64_t messageType) const
     {
         if (Log::isPower2( messageType )) {
             auto iter = m_count.find( messageType );
@@ -51,13 +52,13 @@ namespace Opm {
         }
 
         //output summary.
-        const std::string summary_msg = "\n\nError summary:" + 
-            std::string("\nWarnings          " + std::to_string(numMessages(Log::MessageType::Warning))) +
-            std::string("\nInfo              " + std::to_string(numMessages(Log::MessageType::Info))) +
-            std::string("\nErrors            " + std::to_string(numMessages(Log::MessageType::Error))) + 
-            std::string("\nBugs              " + std::to_string(numMessages(Log::MessageType::Bug))) + 
-            std::string("\nDebug             " + std::to_string(numMessages(Log::MessageType::Debug))) +
-            std::string("\nProblems          " + std::to_string(numMessages(Log::MessageType::Problem))) +"\n";
+        const std::string summary_msg = "\n\nError summary:" +
+            std::string("\nWarnings          " + ToString(numMessages(Log::MessageType::Warning))) +
+            std::string("\nInfo              " + ToString(numMessages(Log::MessageType::Info))) +
+            std::string("\nErrors            " + ToString(numMessages(Log::MessageType::Error))) +
+            std::string("\nBugs              " + ToString(numMessages(Log::MessageType::Bug))) +
+            std::string("\nDebug             " + ToString(numMessages(Log::MessageType::Debug))) +
+            std::string("\nProblems          " + ToString(numMessages(Log::MessageType::Problem))) +"\n";
         StreamLog::addTaggedMessage(Log::MessageType::Info, "", summary_msg);
     }
 

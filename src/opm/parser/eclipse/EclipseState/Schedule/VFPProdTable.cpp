@@ -30,6 +30,7 @@
 #include <opm/parser/eclipse/Units/UnitSystem.hpp>
 
 #include <opm/parser/eclipse/EclipseState/Schedule/VFPProdTable.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 
 namespace Opm {
@@ -387,10 +388,10 @@ void VFPProdTable::check(const DeckKeyword& keyword, const double table_scaling_
                     for (size_type t=0; t<m_data.shape()[0]; ++t) {
                         if (m_data[t][w][g][a][f] < bhp_last) {
                             points += "At point (FLOW, THP, WFR, GFR, ALQ) = "
-                                    + std::to_string(f) + " " + std::to_string(t) + " "
-                                    + std::to_string(w) + " " + std::to_string(g) + " "
-                                    + std::to_string(a) + " at BHP = "
-                                    + std::to_string(m_data[t][w][g][a][f] / table_scaling_factor) + "\n";
+                                    + ToString(f) + " " + ToString(t) + " "
+                                    + ToString(w) + " " + ToString(g) + " "
+                                    + ToString(a) + " at BHP = "
+                                    + ToString(m_data[t][w][g][a][f] / table_scaling_factor) + "\n";
                         }
                         bhp_last = m_data[t][w][g][a][f];
                     }
@@ -400,13 +401,13 @@ void VFPProdTable::check(const DeckKeyword& keyword, const double table_scaling_
     }
 
     if (!points.empty()) {
-        OpmLog::warning("VFP table for production wells has BHP versus THP not " 
+        OpmLog::warning("VFP table for production wells has BHP versus THP not "
                            + std::string("monotonically increasing.\nThis may cause convergence ")
                            + "issues due to switching between BHP and THP control mode."
-                           + std::string("\nIn keyword VFPPROD table number ") 
-                           + std::to_string(m_table_num)
+                           + std::string("\nIn keyword VFPPROD table number ")
+                           + ToString(m_table_num)
                            + ", file " + keyword.getFileName()
-                           + ", line " + std::to_string(keyword.getLineNumber())
+                           + ", line " + ToString(keyword.getLineNumber())
                            + "\n");
         OpmLog::note(points);
     }

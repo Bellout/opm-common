@@ -44,6 +44,7 @@
 #include <opm/parser/eclipse/Parser/ParserKeywords/S.hpp>
 #include <opm/parser/eclipse/Parser/ParserKeywords/T.hpp>
 #include <opm/parser/eclipse/Parser/ParserKeywords/Z.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 #include <opm/parser/eclipse/EclipseState/Grid/EclipseGrid.hpp>
 
@@ -53,10 +54,10 @@ namespace Opm {
 
 
     EclipseGrid::EclipseGrid(std::array<int, 3>& dims ,
-			     const std::vector<double>& coord , 
-			     const std::vector<double>& zcorn , 
-			     const int * actnum, 
-			     const double * mapaxes) 
+			     const std::vector<double>& coord ,
+			     const std::vector<double>& zcorn ,
+			     const int * actnum,
+			     const double * mapaxes)
 	: m_minpvValue(0),
 	  m_minpvMode(MinpvMode::ModeEnum::Inactive),
 	  m_pinch("PINCH"),
@@ -177,7 +178,7 @@ namespace Opm {
                 if (actnumData.size() == getCartesianSize())
                     resetACTNUM( actnumData.data());
                 else {
-                    const std::string msg = "The ACTNUM keyword has " + std::to_string( actnumData.size() ) + " elements - expected : " + std::to_string( getCartesianSize()) + " - ignored.";
+                    const std::string msg = "The ACTNUM keyword has " + ToString( actnumData.size() ) + " elements - expected : " + ToString( getCartesianSize()) + " - ignored.";
                     OpmLog::warning(msg);
                 }
             }
@@ -347,16 +348,16 @@ namespace Opm {
         const std::vector<double>& tops    = deck.getKeyword<ParserKeywords::TOPS>().getSIDoubleData();
 
         if (drv.size() != static_cast<size_t>(dims[0]))
-            throw std::invalid_argument("DRV keyword should have exactly " + std::to_string( dims[0] ) + " elements");
+            throw std::invalid_argument("DRV keyword should have exactly " + ToString( dims[0] ) + " elements");
 
         if (dthetav.size() != static_cast<size_t>(dims[1]))
-            throw std::invalid_argument("DTHETAV keyword should have exactly " + std::to_string( dims[1] ) + " elements");
+            throw std::invalid_argument("DTHETAV keyword should have exactly " + ToString( dims[1] ) + " elements");
 
         if (dzv.size() != static_cast<size_t>(dims[2]))
-            throw std::invalid_argument("DZV keyword should have exactly " + std::to_string( dims[2] ) + " elements");
+            throw std::invalid_argument("DZV keyword should have exactly " + ToString( dims[2] ) + " elements");
 
         if (tops.size() != static_cast<size_t>(dims[0] * dims[1]))
-            throw std::invalid_argument("TOPS keyword should have exactly " + std::to_string( dims[0] * dims[1] ) + " elements");
+            throw std::invalid_argument("TOPS keyword should have exactly " + ToString( dims[0] * dims[1] ) + " elements");
 
         {
             double total_angle = 0;
@@ -511,8 +512,8 @@ namespace Opm {
             if (ZCORNKeyWord.getDataSize() != static_cast<size_t>(8*nx*ny*nz)) {
                 const std::string msg =
                     "Wrong size of the ZCORN keyword: Expected 8*x*ny*nz = "
-                    + std::to_string(static_cast<long long>(8*nx*ny*nz)) + " is "
-                    + std::to_string(static_cast<long long>(ZCORNKeyWord.getDataSize()));
+                    + ToString(static_cast<long long>(8*nx*ny*nz)) + " is "
+                    + ToString(static_cast<long long>(ZCORNKeyWord.getDataSize()));
                 OpmLog::error(msg);
                 throw std::invalid_argument(msg);
             }
@@ -523,8 +524,8 @@ namespace Opm {
             if (COORDKeyWord.getDataSize() != static_cast<size_t>(6*(nx + 1)*(ny + 1))) {
                 const std::string msg =
                     "Wrong size of the COORD keyword: Expected 6*(nx + 1)*(ny + 1) = "
-                    + std::to_string(static_cast<long long>(6*(nx + 1)*(ny + 1))) + " is "
-                    + std::to_string(static_cast<long long>(COORDKeyWord.getDataSize()));
+                    + ToString(static_cast<long long>(6*(nx + 1)*(ny + 1))) + " is "
+                    + ToString(static_cast<long long>(COORDKeyWord.getDataSize()));
                 OpmLog::error(msg);
                 throw std::invalid_argument(msg);
             }
@@ -576,7 +577,7 @@ namespace Opm {
 
     void EclipseGrid::assertVectorSize(const std::vector<double>& vector , size_t expectedSize , const std::string& vectorName) {
         if (vector.size() != expectedSize)
-            throw std::invalid_argument("Wrong size for keyword: " + vectorName + ". Expected: " + std::to_string(expectedSize) + " got: " + std::to_string(vector.size()));
+            throw std::invalid_argument("Wrong size for keyword: " + vectorName + ". Expected: " + ToString(expectedSize) + " got: " + ToString(vector.size()));
     }
 
 

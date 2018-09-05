@@ -45,6 +45,7 @@
 #include <opm/parser/eclipse/Parser/ParserKeywords/M.hpp>
 #include <opm/parser/eclipse/Units/Dimension.hpp>
 #include <opm/parser/eclipse/Units/UnitSystem.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 
 namespace Opm {
@@ -64,7 +65,7 @@ namespace Opm {
         m_inputGrid.resetACTNUM(m_eclipseProperties.getIntGridProperty("ACTNUM").getData().data());
 
         if( this->runspec().phases().size() < 3 )
-            OpmLog::info("Only " + std::to_string( this->runspec().phases().size() )
+            OpmLog::info("Only " + ToString( this->runspec().phases().size() )
                                                                 + " fluid phases are enabled" );
 
         if (deck.hasKeyword( "TITLE" )) {

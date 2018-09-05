@@ -30,6 +30,7 @@
 #include <opm/parser/eclipse/EclipseState/Grid/GridProperties.hpp>
 #include <opm/parser/eclipse/EclipseState/Tables/RtempvdTable.hpp>
 #include <opm/parser/eclipse/EclipseState/Tables/TableManager.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -272,8 +273,8 @@ namespace Opm {
                         }
                 }
             } else {
-                std::string boxSize = std::to_string(static_cast<long long>(indexList.size()));
-                std::string keywordSize = std::to_string(static_cast<long long>(deckItem.size()));
+                std::string boxSize = ToString(static_cast<long long>(indexList.size()));
+                std::string keywordSize = ToString(static_cast<long long>(deckItem.size()));
 
                 throw std::invalid_argument("Size mismatch: Box:" + boxSize + "  DeckKeyword:" + keywordSize);
             }
@@ -386,7 +387,7 @@ namespace Opm {
         for (size_t g=0; g < m_data.size(); g++) {
             T value = m_data[g];
             if ((value < min) || (value > max))
-                throw std::invalid_argument("Property element " + std::to_string( value) + " in " + getKeywordName() + " outside valid limits: [" + std::to_string(min) + ", " + std::to_string(max) + "]");
+                throw std::invalid_argument("Property element " + ToString( value) + " in " + getKeywordName() + " outside valid limits: [" + ToString(min) + ", " + ToString(max) + "]");
         }
     }
 
@@ -405,8 +406,8 @@ namespace Opm {
 
         if (deckItem.size() > m_data.size())
             throw std::invalid_argument("Size mismatch when setting data for:" + getKeywordName()
-                                        + " keyword size: " + std::to_string( deckItem.size() )
-                                        + " input size: " + std::to_string( m_data.size()) );
+                                        + " keyword size: " + ToString( deckItem.size() )
+                                        + " input size: " + ToString( m_data.size()) );
 
         return deckItem;
     }

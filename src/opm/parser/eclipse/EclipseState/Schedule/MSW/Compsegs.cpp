@@ -28,6 +28,8 @@
 #include <opm/parser/eclipse/EclipseState/Schedule/ScheduleEnums.hpp>
 #include <opm/parser/eclipse/Parser/ParserKeywords/C.hpp>
 
+#include <opm/common/utility/stringhelpers.h>
+
 namespace Opm {
 
 
@@ -210,7 +212,7 @@ namespace Opm {
 
         if (interpolation_segment_number == 0) {
             throw std::runtime_error("Failed in finding a segment to do the interpolation with segment "
-                                      + std::to_string(m_segment_number));
+                                      + ToString(m_segment_number));
         }
 
         // performing the interpolation
@@ -223,7 +225,7 @@ namespace Opm {
 
         if (segment_length == 0.) {
             throw std::runtime_error("Zero segment length is botained when doing interpolation between segment "
-                                      + std::to_string(m_segment_number) + " and segment " + std::to_string(interpolation_segment_number) );
+                                      + ToString(m_segment_number) + " and segment " + ToString(interpolation_segment_number) );
         }
 
         m_center_depth = segment_depth + (center_distance - segment_distance) / segment_length * depth_change_segment;

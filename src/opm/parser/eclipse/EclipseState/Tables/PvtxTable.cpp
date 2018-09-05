@@ -24,6 +24,7 @@
 #include <opm/parser/eclipse/EclipseState/Tables/PvtxTable.hpp>
 #include <opm/parser/eclipse/EclipseState/Tables/SimpleTable.hpp>
 #include <opm/parser/eclipse/EclipseState/Tables/TableSchema.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -44,7 +45,7 @@ namespace Opm {
     void PvtxTable::init( const DeckKeyword& keyword, size_t tableIdx) {
         auto ranges = recordRanges( keyword );
         if (tableIdx >= ranges.size())
-            throw std::invalid_argument("Asked for table: " + std::to_string( tableIdx ) + " in keyword + " + keyword.name() + " which only has " + std::to_string( ranges.size() ) + " tables");
+            throw std::invalid_argument("Asked for table: " + ToString( tableIdx ) + " in keyword + " + keyword.name() + " which only has " + ToString( ranges.size() ) + " tables");
 
         {
             auto range = ranges[ tableIdx ];
@@ -97,7 +98,7 @@ namespace Opm {
 
     const SimpleTable& PvtxTable::getUnderSaturatedTable(size_t tableNumber) const {
         if (tableNumber >= size())
-            throw std::invalid_argument("Invalid table number: " + std::to_string( tableNumber) + " max: " + std::to_string( size() - 1 ));
+            throw std::invalid_argument("Invalid table number: " + ToString( tableNumber) + " max: " + ToString( size() - 1 ));
         return m_underSaturatedTables[ tableNumber ];
     }
 

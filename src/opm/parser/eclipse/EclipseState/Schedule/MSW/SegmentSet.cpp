@@ -32,6 +32,8 @@
 #include <opm/parser/eclipse/EclipseState/Schedule/MSW/Segment.hpp>
 #include <opm/parser/eclipse/EclipseState/Schedule/MSW/SegmentSet.hpp>
 
+#include <opm/common/utility/stringhelpers.h>
+
 
 namespace Opm {
 
@@ -222,7 +224,7 @@ namespace Opm {
         // the index of segment in the vector of segments
         const int segment_index = segmentNumberToIndex(segment_number);
         if (segment_index < 0) {
-            throw std::runtime_error("Could not indexate the segment " + std::to_string(segment_number)
+            throw std::runtime_error("Could not indexate the segment " + ToString(segment_number)
                                      + " when trying to get the segment ");
         }
         return m_segments[segment_index];

@@ -24,6 +24,7 @@
 #include <opm/parser/eclipse/EclipseState/Grid/GridProperty.hpp>
 #include <opm/parser/eclipse/EclipseState/Grid/GridProperties.hpp>
 #include <opm/parser/eclipse/Utility/String.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -104,7 +105,7 @@ namespace Opm {
         if (std::fabs( std::nearbyint( doubleValue ) - doubleValue ) < 1e-6)
             return static_cast<int>( doubleValue );
         else
-            throw std::invalid_argument("Expected integer argument - got: " + std::to_string( doubleValue ));
+            throw std::invalid_argument("Expected integer argument - got: " + ToString( doubleValue ));
     }
 
     template<>
@@ -187,7 +188,7 @@ namespace Opm {
 
     template< typename T >
     void GridProperties<T>::insertKeyword(const SupportedKeywordInfo& supportedKeyword) const {
-        m_properties.emplace( supportedKeyword.getKeywordName(), 
+        m_properties.emplace( supportedKeyword.getKeywordName(),
                 GridProperty<T>( this->nx, this->ny , this->nz , supportedKeyword ));
     }
 

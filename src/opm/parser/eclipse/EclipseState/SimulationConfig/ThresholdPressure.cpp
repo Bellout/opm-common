@@ -25,6 +25,7 @@
 #include <opm/parser/eclipse/Parser/ParserKeywords/R.hpp>
 #include <opm/parser/eclipse/Parser/ParserKeywords/T.hpp>
 #include <opm/parser/eclipse/Parser/ParserKeywords/V.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -128,7 +129,7 @@ namespace Opm {
             if (valid)
                 return value;
             else {
-                std::string msg = "The THPRES value for regions " + std::to_string(r1) + " and " + std::to_string(r2) + " has not been initialized. Using 0.0";
+                std::string msg = "The THPRES value for regions " + ToString(r1) + " and " + ToString(r2) + " has not been initialized. Using 0.0";
                 throw std::invalid_argument(msg);
                 return 0;
             }

@@ -21,6 +21,7 @@
 
 #include <opm/parser/eclipse/EclipseState/Tables/ColumnSchema.hpp>
 #include <opm/parser/eclipse/EclipseState/Tables/TableColumn.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 #include <ert/util/ssize_t.h>
 
@@ -111,17 +112,17 @@ namespace Opm {
 
     bool TableColumn::defaultApplied(size_t index) const {
         if (index >= m_values.size())
-            throw std::invalid_argument("Value: " + std::to_string( index ) + " out of range: [0," + std::to_string( m_values.size()) + ")");
+            throw std::invalid_argument("Value: " + ToString( index ) + " out of range: [0," + ToString( m_values.size()) + ")");
 
         return m_default[index];
     }
 
     double TableColumn::operator[](size_t index) const {
         if (index >= m_values.size())
-            throw std::invalid_argument("Value: " + std::to_string( index ) + " out of range: [0," + std::to_string( m_values.size()) + ")");
+            throw std::invalid_argument("Value: " + ToString( index ) + " out of range: [0," + ToString( m_values.size()) + ")");
 
         if (m_default[index])
-            throw std::invalid_argument("Value at index " + std::to_string( index ) + " is defaulted - can not ask!");
+            throw std::invalid_argument("Value at index " + ToString( index ) + " is defaulted - can not ask!");
 
         return m_values[index];
     }

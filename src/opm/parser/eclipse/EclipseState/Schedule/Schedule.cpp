@@ -56,6 +56,7 @@
 #include <opm/parser/eclipse/EclipseState/Schedule/WellProductionProperties.hpp>
 #include <opm/parser/eclipse/Units/Dimension.hpp>
 #include <opm/parser/eclipse/Units/UnitSystem.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -270,7 +271,7 @@ namespace Opm {
                     this->m_modifierDeck[ currentStep ].addKeyword( keyword );
                     m_events.addEvent( ScheduleEvents::GEO_MODIFIER , currentStep);
                 } else {
-                    std::string msg = "OPM does not support grid property modifier " + keyword.name() + " in the Schedule section. Error at report: " + std::to_string( currentStep );
+                    std::string msg = "OPM does not support grid property modifier " + keyword.name() + " in the Schedule section. Error at report: " + ToString( currentStep );
                     parseContext.handleError( ParseContext::UNSUPPORTED_SCHEDULE_GEO_MODIFIER , msg );
                 }
             }
@@ -514,7 +515,7 @@ namespace Opm {
 
                     std::string msg =
                             "Well " + well->name() + " is a history matched well with zero rate where crossflow is banned. " +
-                            "This well will be closed at " + std::to_string ( m_timeMap.getTimePassedUntil(currentStep) / (60*60*24) ) + " days";
+                            "This well will be closed at " + ToString ( m_timeMap.getTimePassedUntil(currentStep) / (60*60*24) ) + " days";
                     OpmLog::note(msg);
                     updateWellStatus( *well, currentStep, WellCommon::StatusEnum::SHUT );
                 }
@@ -680,7 +681,7 @@ namespace Opm {
                        || (properties.hasInjectionControl(WellInjector::RESV) && properties.reservoirInjectionRate == 0) ) ) {
                     std::string msg =
                             "Well " + well->name() + " is an injector with zero rate where crossflow is banned. " +
-                            "This well will be closed at " + std::to_string ( m_timeMap.getTimePassedUntil(currentStep) / (60*60*24) ) + " days";
+                            "This well will be closed at " + ToString ( m_timeMap.getTimePassedUntil(currentStep) / (60*60*24) ) + " days";
                     OpmLog::note(msg);
                     updateWellStatus( *well, currentStep, WellCommon::StatusEnum::SHUT );
                 }
@@ -835,7 +836,7 @@ namespace Opm {
             if ( ! well.getAllowCrossFlow() && (injectionRate == 0) ) {
                 std::string msg =
                         "Well " + well.name() + " is an injector with zero rate where crossflow is banned. " +
-                        "This well will be closed at " + std::to_string ( m_timeMap.getTimePassedUntil(currentStep) / (60*60*24) ) + " days";
+                        "This well will be closed at " + ToString ( m_timeMap.getTimePassedUntil(currentStep) / (60*60*24) ) + " days";
                 OpmLog::note(msg);
                 updateWellStatus( well, currentStep, WellCommon::StatusEnum::SHUT );
             }
@@ -913,7 +914,7 @@ namespace Opm {
                         std::string msg = "Well " + well->name()
                             + " where crossflow is banned has zero total rate."
                             + " This well is prevented from opening at "
-                            + std::to_string( days ) + " days";
+                            + ToString( days ) + " days";
                         OpmLog::note(msg);
                     } else {
                         this->updateWellStatus( *well, currentStep, status );
@@ -1334,7 +1335,7 @@ namespace Opm {
             well.addCompletions( currentStep, pair.second );
             if (well.getCompletions( currentStep ).allCompletionsShut()) {
                 std::string msg =
-                        "All completions in well " + well.name() + " is shut at " + std::to_string ( m_timeMap.getTimePassedUntil(currentStep) / (60*60*24) ) + " days. \n" +
+                        "All completions in well " + well.name() + " is shut at " + ToString ( m_timeMap.getTimePassedUntil(currentStep) / (60*60*24) ) + " days. \n" +
                         "The well is therefore also shut.";
                 OpmLog::note(msg);
                 updateWellStatus( well, currentStep, WellCommon::StatusEnum::SHUT);
@@ -1749,11 +1750,11 @@ namespace Opm {
     const VFPProdTable& Schedule::getVFPProdTable(int table_id, size_t timeStep) const {
         const auto pair = vfpprod_tables.find(table_id);
         if (pair == vfpprod_tables.end())
-            throw std::invalid_argument("No such table id: " + std::to_string(table_id));
+            throw std::invalid_argument("No such table id: " + ToString(table_id));
 
         auto table_ptr = pair->second.get(timeStep);
         if (!table_ptr)
-            throw std::invalid_argument("Table not yet defined at timeStep:" + std::to_string(timeStep));
+            throw std::invalid_argument("Table not yet defined at timeStep:" + ToString(timeStep));
 
         return *table_ptr;
     }
@@ -1761,11 +1762,11 @@ namespace Opm {
     const VFPInjTable& Schedule::getVFPInjTable(int table_id, size_t timeStep) const {
         const auto pair = vfpinj_tables.find(table_id);
         if (pair == vfpinj_tables.end())
-            throw std::invalid_argument("No such table id: " + std::to_string(table_id));
+            throw std::invalid_argument("No such table id: " + ToString(table_id));
 
         auto table_ptr = pair->second.get(timeStep);
         if (!table_ptr)
-            throw std::invalid_argument("Table not yet defined at timeStep:" + std::to_string(timeStep));
+            throw std::invalid_argument("Table not yet defined at timeStep:" + ToString(timeStep));
 
         return *table_ptr;
     }

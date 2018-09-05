@@ -25,6 +25,7 @@
 #include <opm/parser/eclipse/Deck/DeckKeyword.hpp>
 #include <opm/parser/eclipse/Deck/Section.hpp>
 #include <opm/parser/eclipse/Units/UnitSystem.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -59,7 +60,7 @@ namespace Opm {
 
     const DeckKeyword& DeckView::getKeyword( size_t index ) const {
         if( index >= this->size() )
-            throw std::out_of_range("Keyword index " + std::to_string( index ) + " is out of range.");
+            throw std::out_of_range("Keyword index " + ToString( index ) + " is out of range.");
 
         return *( this->begin() + index );
     }

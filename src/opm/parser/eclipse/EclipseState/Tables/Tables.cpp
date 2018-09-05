@@ -73,6 +73,7 @@
 #include <opm/parser/eclipse/EclipseState/Tables/TableContainer.hpp>
 #include <opm/parser/eclipse/EclipseState/Tables/WatvisctTable.hpp>
 #include <opm/parser/eclipse/EclipseState/Tables/AqutabTable.hpp>
+#include <opm/common/utility/stringhelpers.h>
 
 namespace Opm {
 
@@ -197,7 +198,7 @@ const TableColumn& SgwfnTable::getKrgwColumn() const {
 }
 
 const TableColumn& SgwfnTable::getPcgwColumn() const {
-    return SimpleTable::getColumn(3); 
+    return SimpleTable::getColumn(3);
 }
 
 SgofTable::SgofTable( const DeckItem& item , const bool jfunc) {
@@ -385,7 +386,7 @@ SgfnTable::SgfnTable( const DeckItem& item, const bool jfunc ) {
 }
 
 
-const TableColumn& SgfnTable::getSgColumn() const { 
+const TableColumn& SgfnTable::getSgColumn() const {
     return SimpleTable::getColumn(0);
 }
 
@@ -411,15 +412,15 @@ SsfnTable::SsfnTable( const DeckItem& item ) {
     SimpleTable::init(item);
 }
 
-const TableColumn& SsfnTable::getSolventFractionColumn() const { 
+const TableColumn& SsfnTable::getSolventFractionColumn() const {
     return SimpleTable::getColumn(0);
 }
 
-const TableColumn& SsfnTable::getGasRelPermMultiplierColumn() const { 
+const TableColumn& SsfnTable::getGasRelPermMultiplierColumn() const {
     return SimpleTable::getColumn(1);
 }
 
-const TableColumn& SsfnTable::getSolventRelPermMultiplierColumn() const { 
+const TableColumn& SsfnTable::getSolventRelPermMultiplierColumn() const {
     return SimpleTable::getColumn(2);
 
 }
@@ -652,7 +653,7 @@ const TableColumn& WatvisctTable::getTemperatureColumn() const {
 
 const TableColumn& WatvisctTable::getWaterViscosityColumn() const {
     return SimpleTable::getColumn(1);
-} 
+}
 
 GasvisctTable::GasvisctTable( const Deck& deck, const DeckItem& deckItem ) {
     int numComponents = deck.getKeyword<ParserKeywords::COMPS>().getRecord(0).getItem(0).get< int >(0);
@@ -662,7 +663,7 @@ GasvisctTable::GasvisctTable( const Deck& deck, const DeckItem& deckItem ) {
 
     m_schema.addColumn( ColumnSchema( "Temperature" , Table::STRICTLY_INCREASING , Table::DEFAULT_NONE));
     for (int compIdx = 0; compIdx < numComponents; ++ compIdx) {
-        std::string columnName = "Viscosity" + std::to_string(compIdx);
+        std::string columnName = "Viscosity" + ToString(compIdx);
         m_schema.addColumn( ColumnSchema( columnName, Table::INCREASING , Table::DEFAULT_NONE ) );
     }
 
@@ -752,15 +753,15 @@ const TableColumn& RocktabTable::getPressureColumn() const {
 }
 
 const TableColumn& RocktabTable::getPoreVolumeMultiplierColumn() const {
-    return SimpleTable::getColumn(1); 
+    return SimpleTable::getColumn(1);
 }
 
 const TableColumn& RocktabTable::getTransmissibilityMultiplierColumn() const {
-    return SimpleTable::getColumn(2); 
+    return SimpleTable::getColumn(2);
 }
 
 const TableColumn& RocktabTable::getTransmissibilityMultiplierXColumn() const {
-    return SimpleTable::getColumn(2); 
+    return SimpleTable::getColumn(2);
 }
 
 const TableColumn& RocktabTable::getTransmissibilityMultiplierYColumn() const {
@@ -787,7 +788,7 @@ const TableColumn& RsvdTable::getDepthColumn() const {
 }
 
 const TableColumn& RsvdTable::getRsColumn() const {
-    return SimpleTable::getColumn(1); 
+    return SimpleTable::getColumn(1);
 }
 
 RvvdTable::RvvdTable( const DeckItem& item ) {
@@ -797,7 +798,7 @@ RvvdTable::RvvdTable( const DeckItem& item ) {
 }
 
 const TableColumn& RvvdTable::getDepthColumn() const {
-    return SimpleTable::getColumn(0); 
+    return SimpleTable::getColumn(0);
 }
 
 const TableColumn& RvvdTable::getRvColumn() const {
@@ -841,7 +842,7 @@ AqutabTable::AqutabTable( const DeckItem& item ) {
 }
 
 const TableColumn& AqutabTable::getTimeColumn() const {
-    return SimpleTable::getColumn(0); 
+    return SimpleTable::getColumn(0);
 }
 
 const TableColumn& AqutabTable::getPressureColumn() const {
@@ -866,7 +867,7 @@ const TableColumn& EnkrvdTable::getDepthColumn() const {
 }
 
 const TableColumn& EnkrvdTable::getKrwmaxColumn() const {
-    return SimpleTable::getColumn(1); 
+    return SimpleTable::getColumn(1);
 }
 
 const TableColumn& EnkrvdTable::getKrgmaxColumn() const {
@@ -878,7 +879,7 @@ const TableColumn& EnkrvdTable::getKromaxColumn() const {
 }
 
 const TableColumn& EnkrvdTable::getKrwcritColumn() const {
-    return SimpleTable::getColumn(4); 
+    return SimpleTable::getColumn(4);
 }
 
 const TableColumn& EnkrvdTable::getKrgcritColumn() const {
@@ -908,39 +909,39 @@ EnptvdTable::EnptvdTable( const DeckItem& item ) {
 }
 
 const TableColumn& EnptvdTable::getDepthColumn() const {
-    return SimpleTable::getColumn(0); 
+    return SimpleTable::getColumn(0);
 }
 
 const TableColumn& EnptvdTable::getSwcoColumn() const {
-    return SimpleTable::getColumn(1); 
+    return SimpleTable::getColumn(1);
 }
 
 const TableColumn& EnptvdTable::getSwcritColumn() const {
-    return SimpleTable::getColumn(2); 
+    return SimpleTable::getColumn(2);
 }
 
 const TableColumn& EnptvdTable::getSwmaxColumn() const {
-    return SimpleTable::getColumn(3); 
+    return SimpleTable::getColumn(3);
 }
 
 const TableColumn& EnptvdTable::getSgcoColumn() const {
-    return SimpleTable::getColumn(4); 
+    return SimpleTable::getColumn(4);
 }
 
 const TableColumn& EnptvdTable::getSgcritColumn() const {
-    return SimpleTable::getColumn(5); 
+    return SimpleTable::getColumn(5);
 }
 
 const TableColumn& EnptvdTable::getSgmaxColumn() const {
-    return SimpleTable::getColumn(6); 
+    return SimpleTable::getColumn(6);
 }
 
 const TableColumn& EnptvdTable::getSowcritColumn() const {
-    return SimpleTable::getColumn(7); 
+    return SimpleTable::getColumn(7);
 }
 
 const TableColumn& EnptvdTable::getSogcritColumn() const {
-    return SimpleTable::getColumn(8); 
+    return SimpleTable::getColumn(8);
 }
 
 ImkrvdTable::ImkrvdTable( const DeckItem& item ) {
@@ -957,35 +958,35 @@ ImkrvdTable::ImkrvdTable( const DeckItem& item ) {
 }
 
 const TableColumn& ImkrvdTable::getDepthColumn() const {
-    return SimpleTable::getColumn(0); 
+    return SimpleTable::getColumn(0);
 }
 
 const TableColumn& ImkrvdTable::getKrwmaxColumn() const {
-    return SimpleTable::getColumn(1); 
+    return SimpleTable::getColumn(1);
 }
 
 const TableColumn& ImkrvdTable::getKrgmaxColumn() const {
-    return SimpleTable::getColumn(2); 
+    return SimpleTable::getColumn(2);
 }
 
 const TableColumn& ImkrvdTable::getKromaxColumn() const {
-    return SimpleTable::getColumn(3); 
+    return SimpleTable::getColumn(3);
 }
 
 const TableColumn& ImkrvdTable::getKrwcritColumn() const {
-    return SimpleTable::getColumn(4); 
+    return SimpleTable::getColumn(4);
 }
 
 const TableColumn& ImkrvdTable::getKrgcritColumn() const {
-    return SimpleTable::getColumn(5); 
+    return SimpleTable::getColumn(5);
 }
 
 const TableColumn& ImkrvdTable::getKrocritgColumn() const {
-    return SimpleTable::getColumn(6); 
+    return SimpleTable::getColumn(6);
 }
 
 const TableColumn& ImkrvdTable::getKrocritwColumn() const {
-    return SimpleTable::getColumn(7); 
+    return SimpleTable::getColumn(7);
 }
 
 
@@ -1004,39 +1005,39 @@ ImptvdTable::ImptvdTable( const DeckItem& item ) {
 }
 
 const TableColumn& ImptvdTable::getDepthColumn() const {
-    return SimpleTable::getColumn(0); 
+    return SimpleTable::getColumn(0);
 }
 
 const TableColumn& ImptvdTable::getSwcoColumn() const {
-    return SimpleTable::getColumn(1); 
+    return SimpleTable::getColumn(1);
 }
 
 const TableColumn& ImptvdTable::getSwcritColumn() const {
-    return SimpleTable::getColumn(2); 
+    return SimpleTable::getColumn(2);
 }
 
 const TableColumn& ImptvdTable::getSwmaxColumn() const {
-    return SimpleTable::getColumn(3); 
+    return SimpleTable::getColumn(3);
 }
 
 const TableColumn& ImptvdTable::getSgcoColumn() const {
-    return SimpleTable::getColumn(4); 
+    return SimpleTable::getColumn(4);
 }
 
 const TableColumn& ImptvdTable::getSgcritColumn() const {
-    return SimpleTable::getColumn(5); 
+    return SimpleTable::getColumn(5);
 }
 
 const TableColumn& ImptvdTable::getSgmaxColumn() const {
-    return SimpleTable::getColumn(6); 
+    return SimpleTable::getColumn(6);
 }
 
 const TableColumn& ImptvdTable::getSowcritColumn() const {
-    return SimpleTable::getColumn(7); 
+    return SimpleTable::getColumn(7);
 }
 
 const TableColumn& ImptvdTable::getSogcritColumn() const {
-    return SimpleTable::getColumn(8); 
+    return SimpleTable::getColumn(8);
 }
 
 SorwmisTable::SorwmisTable( const DeckItem& item ) {
@@ -1061,7 +1062,7 @@ SgcwmisTable::SgcwmisTable( const DeckItem& item ) {
 }
 
 const TableColumn& SgcwmisTable::getWaterSaturationColumn() const {
-    return SimpleTable::getColumn(0); 
+    return SimpleTable::getColumn(0);
 }
 
 const TableColumn& SgcwmisTable::getMiscibleResidualGasColumn() const {
@@ -1079,7 +1080,7 @@ const TableColumn& MiscTable::getSolventFractionColumn() const {
 }
 
 const TableColumn& MiscTable::getMiscibilityColumn() const {
-    return SimpleTable::getColumn(1); 
+    return SimpleTable::getColumn(1);
 }
 
 
@@ -1123,15 +1124,15 @@ MsfnTable::MsfnTable( const DeckItem& item ) {
 
 
 const TableColumn& MsfnTable::getGasPhaseFractionColumn() const {
-    return SimpleTable::getColumn(0); 
+    return SimpleTable::getColumn(0);
 }
 
 const TableColumn& MsfnTable::getGasSolventRelpermMultiplierColumn() const {
-    return SimpleTable::getColumn(1); 
+    return SimpleTable::getColumn(1);
 }
 
 const TableColumn& MsfnTable::getOilRelpermMultiplierColumn() const {
-    return SimpleTable::getColumn(2); 
+    return SimpleTable::getColumn(2);
 }
 
 namespace {
