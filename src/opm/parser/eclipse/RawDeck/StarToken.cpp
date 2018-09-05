@@ -129,7 +129,7 @@ namespace Opm {
             m_count = 1;
         }
         else {
-            m_count = stoi( m_countString );
+            m_count = atoi( m_countString.c_str() );
 
             if (m_count == 0)
                 // TODO: decorate the deck with a warning instead?
