@@ -28,7 +28,6 @@
 
 #include <opm/parser/eclipse/RawDeck/StarToken.hpp>
 #include <opm/parser/eclipse/Utility/Stringview.hpp>
-#include <opm/common/utility/stringhelpers.h>
 
 namespace qi = boost::spirit::qi;
 
@@ -130,7 +129,7 @@ namespace Opm {
             m_count = 1;
         }
         else {
-            m_count = ToString( m_countString );
+            m_count = stoi( m_countString );
 
             if (m_count == 0)
                 // TODO: decorate the deck with a warning instead?
