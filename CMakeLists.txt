@@ -7,7 +7,8 @@ set(OPM_MACROS_ROOT ${PROJECT_SOURCE_DIR})
 
 option(ENABLE_ECL_INPUT "Enable eclipse input support?" ON)
 option(ENABLE_ECL_OUTPUT "Enable eclipse output support?" OFF)
-set(CMAKE_INSTALL_PREFIX "$PROJECT_SOURCE_DIR/../libraries/")
+set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/../libraries/")
+set(ecl_DIR "${PROJECT_SOURCE_DIR}/../libecl")
 
 # Output implies input
 if(ENABLE_ECL_OUTPUT)
