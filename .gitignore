@@ -49,8 +49,6 @@ gmon.out
 log.log
 build
 install
-.cproject
-.project
 /testdata/statoil
 .idea
 /Debug/
@@ -61,7 +59,6 @@ install
 
 # Compiled Static libraries
 *.lai
-*.la
 *.a
 
 # Mac OS X debug info
@@ -69,19 +66,4 @@ install
 
 # emacs directory setting:
 .dir-locals.el
-
-# Additional ignores added for FieldOpt
-ParserKeywords.cpp
-config.h.tmp
-doc/*
-dunemod.tmp
-include/*
-inlinekw.cpp
-keyword_list.argv
-opm-common-config-version.cmake
-opm-common-config.cmake
-opm-common-install.cmake
-opm-common-targets.cmake
-project-version.h
-project-version.tmp
-
+/cmake-build-debug/
